@@ -46,7 +46,6 @@ class FCM:
             )
 
             if resp.status_code != 200:
-                print(resp.status_code, resp.text)
                 logging.warning(
                     f"Got an error while sending message: "
                     f"status_code={resp.status_code}, response={resp.text}"
@@ -54,3 +53,20 @@ class FCM:
                 return
 
             return resp.json()["name"]
+
+    async def send_notification(self, title: str, body: str, image_url: Optional[str] = None,
+                                device_token: Optional[str] = None) -> Optional[str]:
+        return await self.send_message(Message(
+            device_token=device_token,
+            notification={
+                "title": title,
+                "body": body,
+                "image": image_url,
+            }
+        ))
+
+    async def send_data(self, device_token: Optional[str] = None, **kwargs) -> Optional[str]:
+        return await self.send_message(Message(
+            device_token=device_token,
+            data=kwargs
+        ))
