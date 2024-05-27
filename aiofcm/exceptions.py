@@ -1,10 +1,7 @@
-class ConnectionClosed(Exception):
-    pass
+class AuthorizationError(Exception):
+    def __init__(self, code: int, response: str):
+        self.code = code
+        self.response = response
 
     def __str__(self) -> str:
-        return "Connection closed"
-
-
-class ConnectionError(Exception):
-    def __str__(self) -> str:
-        return "Failed to connect"
+        return f"Failed to authorize! Status code: {self.code}"

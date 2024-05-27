@@ -1,9 +1,15 @@
 import asyncio
 import logging
 
-import uvloop
-
 from aiofcm import FCM, Message
+
+APP_CONFIG = {
+    "project_id": "some-app-12345",
+    "private_key_id": "217bd0c4969983f2077ef73847ce353956aacb28",
+    "private_key": "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-12345@some-app-12345.iam.gserviceaccount.com",
+    "token_uri": "https://oauth2.googleapis.com/token",
+}
 
 
 def setup_logger(log_level):
@@ -15,20 +21,16 @@ def setup_logger(log_level):
 
 
 if __name__ == "__main__":
-    asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     setup_logger("DEBUG")
 
     device_token = "<DEVICE_TOKEN>"
-    sender_id = 123456789000
-    api_key = "<API_KEY>"
 
     notification = {
         "title": "Hello from Firebase",
         "body": "This is notification",
-        "sound": "default",
     }
 
-    fcm = FCM(sender_id, api_key)
+    fcm = FCM(APP_CONFIG)
 
     async def send_message():
         message = Message(

@@ -1,11 +1,7 @@
 from aiofcm.client import FCM
-from aiofcm.common import Message, PRIORITY_NORMAL, PRIORITY_HIGH
-from aiofcm.exceptions import ConnectionError
+from aiofcm.common import Message
 
 __all__ = [
     "FCM",
     "Message",
-    "PRIORITY_NORMAL",
-    "PRIORITY_HIGH",
-    "ConnectionError",
 ]
